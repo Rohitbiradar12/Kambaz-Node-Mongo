@@ -12,7 +12,7 @@ export default function UserRoutes(app, db) {
   const deleteUser = (req, res) => {
     const { userId } = req.params;
     const result = dao.deleteUser(userId);
-    // Our DAO returns { deletedCount: number }
+    
     if (!result || result.deletedCount === 0) {
       return res.sendStatus(404);
     }
@@ -39,7 +39,7 @@ export default function UserRoutes(app, db) {
       return res.sendStatus(404);
     }
 
-    // keep session in sync if this is the logged-in user
+    
     req.session["currentUser"] = updated;
     res.json(updated);
   };
@@ -82,7 +82,7 @@ export default function UserRoutes(app, db) {
     res.json(currentUser);
   };
 
-  // 🔥 NEW: people for a course (for PeopleTable)
+
   const findUsersForCourse = (req, res) => {
     const { courseId } = req.params;
     const users = dao.findUsersForCourse(courseId);
