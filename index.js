@@ -14,9 +14,9 @@ import EnrollmentsRoutes from "./Kambaz/Enrollments/routes.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
 
-const FRONTEND_ORIGIN =
-  process.env.CORS_ORIGIN || "http://localhost:3000";
+const FRONTEND_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:3000";
 
 app.use(
   cors({
@@ -27,21 +27,20 @@ app.use(
 
 app.use(express.json());
 
-app.set("trust proxy", 1);
-
+const isDev = process.env.NODE_ENV == "development";
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "kambaz",
     resave: false,
     saveUninitialized: false,
+    proxy: !isDev,
     cookie: {
       httpOnly: true,
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      secure: process.env.NODE_ENV === "production",
+      sameSite: isDev ? "lax" : "none",
+      secure: isDev ? false : true,
     },
   })
 );
-
 
 UserRoutes(app, db);
 CourseRoutes(app, db);
@@ -51,7 +50,6 @@ EnrollmentsRoutes(app, db);
 
 Lab5(app);
 Hello(app);
-
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
