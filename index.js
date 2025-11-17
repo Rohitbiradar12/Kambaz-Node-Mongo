@@ -27,7 +27,7 @@ app.use(
 
 app.use(express.json());
 
-const isDev = process.env.NODE_ENV == "development";
+const isDev = process.env.NODE_ENV === "development";
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "kambaz",
