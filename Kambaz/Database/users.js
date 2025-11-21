@@ -6,7 +6,7 @@ export default[
     "firstName": "Tony",
     "lastName": "Stark",
     "email": "tony@stark.com",
-    "dob": "1970-05-29T00:00:00.000Z",
+    "dob": "1970-05-29",
     "role": "FACULTY",
     "loginId": "001234561S",
     "section": "S101",
