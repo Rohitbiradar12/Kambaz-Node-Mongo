@@ -59,17 +59,14 @@ EnrollmentsRoutes(app, db);
 Lab5(app);
 Hello(app);
 
-const PORT = process.env.PORT || 4000;
-
 mongoose
   .connect(CONNECTION_STRING)
   .then(async () => {
     await seedDatabase();
-    app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
-    });
+    console.log("MongoDB connected and seeded");
   })
   .catch((err) => {
     console.error("Failed to connect to MongoDB", err);
-    process.exit(1);
   });
+
+export default app;
