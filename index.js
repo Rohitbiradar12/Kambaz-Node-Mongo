@@ -1,3 +1,4 @@
+// index.js (server entry)
 import express from "express";
 import cors from "cors";
 import session from "express-session";
@@ -12,7 +13,7 @@ import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModulesRoutes from "./Kambaz/Modules/routes.js";
 import AssignmentsRoutes from "./Kambaz/Assignments/routes.js";
 import EnrollmentsRoutes from "./Kambaz/Enrollments/routes.js";
-import seedDatabase from "./Kambaz/Database/seed.js";
+import seedFromDatabase from "./Kambaz/Database/seed.js";
 
 const CONNECTION_STRING =
   process.env.DATABASE_CONNECTION_STRING ||
@@ -45,10 +46,10 @@ app.use(
       httpOnly: true,
       sameSite: isDev ? "lax" : "none",
       secure: isDev ? false : true,
-      // secure: !isDev
     },
   })
 );
+
 
 UserRoutes(app, db);
 CourseRoutes(app, db);
@@ -59,14 +60,30 @@ EnrollmentsRoutes(app, db);
 Lab5(app);
 Hello(app);
 
+const PORT = process.env.PORT || 4000;
+
+
 mongoose
   .connect(CONNECTION_STRING)
   .then(async () => {
-    await seedDatabase();
-    console.log("MongoDB connected and seeded");
+    console.log("Connected to MongoDB");
+
+ 
+    try {
+      await seedFromDatabase(); 
+    } catch (err) {
+      console.error("Seeder: failed during startup:", err);
+    }
+
+    if (isDev) {
+      app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+      });
+    }
   })
   .catch((err) => {
     console.error("Failed to connect to MongoDB", err);
+    process.exit(1);
   });
 
 export default app;
