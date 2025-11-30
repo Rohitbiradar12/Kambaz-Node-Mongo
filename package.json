@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rohitbiradar12/kambaz-node-server-app.git"
+    "url": "git+https://github.com/Rohitbiradar12/Kambaz-Node-Mongo.git"
   },
   "keywords": [
     "Node",
@@ -25,9 +25,9 @@
   "author": "Rohit Biradar",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Rohitbiradar12/kambaz-node-server-app/issues"
+    "url": "https://github.com/Rohitbiradar12/Kambaz-Node-Mongo/issues"
   },
-  "homepage": "https://github.com/Rohitbiradar12/kambaz-node-server-app#readme",
+  "homepage": "https://github.com/Rohitbiradar12/Kambaz-Node-Mongo#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
